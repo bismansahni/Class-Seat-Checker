@@ -63,8 +63,9 @@ async function sendEmail(email, className, seats) {
   const fetch = await import('node-fetch').then(mod => mod.default);
   const emailParams = {
     from_name: 'Class Seat Checker',
-    className: className, // Ensure this matches the placeholder in your template
-    seats: seats, // Ensure this matches the placeholder in your template
+    to_email: email, // This should match the placeholder in your template
+    className: className,
+    seats: seats,
     reply_to: 'no-reply@classseatchecker.com',
   };
 
