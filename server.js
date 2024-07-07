@@ -18,7 +18,7 @@ app.get('/checkSeats', checkingSeatsHandler);
 // Start the server
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
-    // Schedule periodic checks every minute
+    // Schedule periodic checks every 20 seconds
     schedule.scheduleJob('*/20 * * * * *', () => {
         console.log('Running periodic seat availability check...');
         checkPendingNotifications();
@@ -28,6 +28,11 @@ app.listen(port, () => {
 // Function to check pending notifications
 async function checkPendingNotifications() {
     const fetch = await import('node-fetch').then(mod => mod.default);
+    console.log('Checking pending notifications for the following classes:');
+    for (const [key, { email, className }] of pendingNotifications.entries()) {
+        console.log(`Class: ${className}, Term: ${key.split('-')[0]}, Class Number: ${key.split('-')[1]}`);
+    }
+    
     for (const [key, { email, className }] of pendingNotifications.entries()) {
         const [term, classNbr] = key.split('-');
         const url = `https://eadvs-cscc-catalog-api.apps.asu.edu/catalog-microservices/api/v1/search/classes?term=${term}&classNbr=${classNbr}`;
