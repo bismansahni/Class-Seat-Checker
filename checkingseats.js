@@ -99,9 +99,6 @@
 
 
 
-
-
-
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -201,9 +198,10 @@ async function sendEmail(email, className, seats) {
 async function checkPendingNotifications() {
     const fetch = await import('node-fetch').then(mod => mod.default);
     console.log('Checking pending notifications for the following classes:');
+    
     for (const [key, notifications] of pendingNotifications.entries()) {
         notifications.forEach(({ email, className }) => {
-            console.log(`Class: ${className}, Email: ${email}`);
+            console.log(`Class: ${className}, Term: ${key.split('-')[0]}, Class Number: ${key.split('-')[1]}, Email: ${email}`);
         });
     }
     
@@ -231,7 +229,7 @@ async function checkPendingNotifications() {
                     await sendEmail(email, className, availableSeats);
                     console.log(`Seats available for ${className}. Email sent to ${email}`);
                 }
-                pendingNotifications.delete(key);
+                pendingNotifications.delete(key); // Remove the key after notifying all pending requests
             }
         } catch (error) {
             console.error(`Error checking pending notification for ${key}:`, error);
