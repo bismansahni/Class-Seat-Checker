@@ -19,7 +19,7 @@ app.get('/checkSeats', checkingSeatsHandler);
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
     // Schedule periodic checks every minute
-    schedule.scheduleJob('*/2 * * * *', () => {
+    schedule.scheduleJob('*/20 * * * * *', () => {
         console.log('Running periodic seat availability check...');
         checkPendingNotifications();
     });
