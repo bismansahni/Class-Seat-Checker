@@ -265,6 +265,74 @@ let pendingNotifications = new Map();
     cleanUpOldNotifications();
 })();
 
+
+
+// async function handler(req, res) {
+//     if (req.method !== 'GET') {
+//         return res.status(405).json({ message: 'Method Not Allowed' });
+//     }
+
+//     const { term, classNbr, email } = req.query;
+
+//     try {
+//         const fetch = await import('node-fetch').then(mod => mod.default);
+//         const url = `https://eadvs-cscc-catalog-api.apps.asu.edu/catalog-microservices/api/v1/search/classes?term=${term}&classNbr=${classNbr}`;
+//         const response = await fetch(url, {
+//             headers: {
+//                 'Authorization': 'Bearer null',
+//             },
+//         });
+
+//         if (!response.ok) {
+//             throw new Error(`Unexpected response ${response.statusText}`);
+//         }
+
+//         const jsonResponse = await response.json();
+
+//         // Check if the class data is present
+//         if (!jsonResponse.hits.hits.length) {
+//             return res.status(400).json({ 
+//                 success: false, 
+//                 message: 'The term number or class number is incorrect.' 
+//             });
+//         }
+
+//         const totalSeats = jsonResponse.hits.hits[0]._source.ENRLCAP;
+//         const enrolledSeats = jsonResponse.hits.hits[0]._source.ENRLTOT;
+//         const availableSeats = totalSeats - enrolledSeats;
+//         const className = jsonResponse.hits.hits[0]._source.COURSETITLELONG;
+
+//         let message;
+//         if (availableSeats > 0) {
+//             await sendEmail(email, className, availableSeats);
+//             message = `Class: ${className}, Available Seats: ${availableSeats}`;
+//         } else {
+//             const key = `${term}-${classNbr}`;
+//             if (!pendingNotifications.has(key)) {
+//                 pendingNotifications.set(key, []);
+//             }
+//             pendingNotifications.get(key).push({ email, className, timestamp: Date.now() });
+//             await savePendingNotifications(pendingNotifications);
+//             console.log(`New entry created: Email: ${email}, Class: ${classNbr}, Term: ${term}`);
+//             message = `Class: ${className}, Available Seats: 0. Right now there are no seats available. You will be notified via email as soon as a seat becomes available.`;
+//         }
+
+//         res.status(200).json({
+//             success: true,
+//             className,
+//             seats: availableSeats,
+//             message,
+//         });
+//     } catch (error) {
+//         console.error(`Error in API handler:`, error);
+//         res.status(500).json({
+//             success: false,
+//             message: error.message,
+//         });
+//     }
+// }
+
+
 async function handler(req, res) {
     if (req.method !== 'GET') {
         return res.status(405).json({ message: 'Method Not Allowed' });
@@ -303,7 +371,7 @@ async function handler(req, res) {
         let message;
         if (availableSeats > 0) {
             await sendEmail(email, className, availableSeats);
-            message = `Class: ${className}, Available Seats: ${availableSeats}`;
+            message = `Class: ${className}, Available Seats: ${availableSeats}. Since the seats are already more than zero, we are not adding it to tracking.`;
         } else {
             const key = `${term}-${classNbr}`;
             if (!pendingNotifications.has(key)) {
@@ -329,6 +397,7 @@ async function handler(req, res) {
         });
     }
 }
+
 
 async function stopTrackingHandler(req, res) {
     if (req.method !== 'POST') {

@@ -17,11 +17,7 @@ function checkSeats() {
         .then(data => {
             const resultDiv = document.getElementById('result');
             if (data.success) {
-                if (data.seats > 0) {
-                    resultDiv.innerHTML = `Class: ${data.className}, Available Seats: ${data.seats}`;
-                } else {
-                    resultDiv.innerHTML = `Class: ${data.className}, Available Seats: 0. Right now there are no seats available. You will be notified via email as soon as a seat becomes available.`;
-                }
+                resultDiv.innerHTML = data.message;
             } else {
                 resultDiv.innerHTML = `Error: ${data.message}`;
             }
