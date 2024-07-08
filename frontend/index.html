@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,6 +17,38 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <button type="submit">Check Seats</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Seat Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Class Searcher</h1>
+        <p>If you already have a class being tracked and you want to stop it, put the details and hit "Stop Tracking". Otherwise, put the details and press "Check Seats" to start the tracking.</p>
+        <form id="seatForm">
+            <label for="term">Term (For Fall 2024 put number 2247):</label>
+            <input type="text" id="term" name="term" placeholder="2247" required>
+            <label for="classNbr">Class Section Number:</label>
+            <input type="text" id="classNbr" name="classNbr" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit" id="checkSeatsButton">Check Seats</button>
+            <button type="button" id="stopTrackingButton">Stop Tracking</button>
         </form>
         <div id="result"></div>
     </div>
