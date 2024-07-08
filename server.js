@@ -120,7 +120,7 @@ app.post('/stopTracking', stopTrackingHandler);
     for (const [key, value] of loadedPendingNotifications.entries()) {
         pendingNotifications.set(key, value);
     }
-    console.log('Pending notifications loaded');
+    console.log('Pending notifications loaded from server file');
     cleanUpOldNotifications(); // Initial cleanup on server start
 })();
 

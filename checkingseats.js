@@ -261,7 +261,7 @@ let pendingNotifications = new Map();
 
 (async () => {
     pendingNotifications = await loadPendingNotifications();
-    console.log('Pending notifications loaded');
+    console.log('Pending notifications loaded from checkingseats file');
     cleanUpOldNotifications();
 })();
 
@@ -370,7 +370,7 @@ async function handler(req, res) {
 
         let message;
         if (availableSeats > 0) {
-            await sendEmail(email, className, availableSeats);
+            await sendEmail(email, className, availableSeats,classNbr,term);
             message = `Class: ${className}, Available Seats: ${availableSeats}. Since the seats are already more than zero, we are not adding it to tracking.`;
         } else {
             const key = `${term}-${classNbr}`;
@@ -431,7 +431,7 @@ async function stopTrackingHandler(req, res) {
     }
 }
 
-async function sendEmail(email, className, seats) {
+async function sendEmail(email, className, seats,classNbr,term) {
     const fetch = await import('node-fetch').then(mod => mod.default);
     const emailParams = {
         from_name: 'Class Seat Checker',
@@ -439,6 +439,8 @@ async function sendEmail(email, className, seats) {
         className: className,
         seats: seats,
         reply_to: 'no-reply@classseatchecker.com',
+        term:term,
+        classNbr:classNbr,
     };
 
     const requestBody = {
