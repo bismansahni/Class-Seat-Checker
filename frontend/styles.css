@@ -1,0 +1,119 @@
+
+
+
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: linear-gradient(120deg, #e0e7ff 0%, #f4f4f9 100%);
+    min-height: 100vh;
+    color: #22223b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    margin: 0;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+    border-radius: 18px;
+    padding: 32px 28px 24px 28px;
+    transition: box-shadow 0.2s;
+    animation: popIn 0.8s cubic-bezier(.62,-0.27,.5,1.5);
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.95);}
+    to   { opacity: 1; transform: scale(1);}
+}
+
+h1 {
+    font-size: 2.2rem;
+    color: #294b90;
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #484848;
+    margin-bottom: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+label {
+    display: block;
+    margin: 20px 0 7px 2px;
+    font-size: 1rem;
+    color: #314471;
+    font-weight: 600;
+}
+
+input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 0 0 16px 0;
+    border: 1.5px solid #cdd1df;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: rgba(248,250,255,0.5);
+    outline: none;
+    transition: border 0.2s;
+}
+
+input:focus {
+    border-color: #4a90e2;
+    background: #f3f8ff;
+}
+
+button {
+    background: linear-gradient(90deg, #4a90e2 40%, #3568c7 100%);
+    color: #fff;
+    padding: 14px 0;
+    border: none;
+    border-radius: 8px;
+    width: 48%;
+    margin: 8px 1% 0 0;
+    cursor: pointer;
+    font-size: 1.09rem;
+    font-weight: 600;
+    box-shadow: 0 2px 10px 0 rgba(74, 144, 226, 0.07);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.09s;
+    outline: none;
+    display: inline-block;
+    letter-spacing: 0.03em;
+}
+
+button#stopTrackingButton {
+    background: linear-gradient(90deg, #e24a4a 40%, #a32525 100%);
+}
+
+button:hover, button:focus {
+    background: linear-gradient(90deg, #385f9c 40%, #193255 100%);
+    transform: translateY(-2px) scale(1.03);
+}
+
+button#stopTrackingButton:hover, button#stopTrackingButton:focus {
+    background: linear-gradient(90deg, #d23838 40%, #7a1919 100%);
+}
+
+#result, #stopResult {
+    margin-top: 25px;
+    font-size: 1.07rem;
+    min-height: 28px;
+    color: #2d6a4f;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    word-break: break-word;
+    text-align: left;
+    padding: 0 6px;
+}
